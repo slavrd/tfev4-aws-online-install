@@ -55,6 +55,8 @@ resource "aws_lb_target_group" "port_80" {
     healthy_threshold   = 3
     unhealthy_threshold = 3
   }
+
+  tags = var.common_tags
 }
 
 resource "aws_lb_target_group" "port_443" {
@@ -71,6 +73,8 @@ resource "aws_lb_target_group" "port_443" {
     healthy_threshold   = 3
     unhealthy_threshold = 3
   }
+
+  tags = var.common_tags
 }
 
 resource "aws_lb_target_group" "port_8800" {
@@ -78,4 +82,5 @@ resource "aws_lb_target_group" "port_8800" {
   port     = 8800
   protocol = "TCP"
   vpc_id   = module.tfe-network.vpc_id
+  tags     = var.common_tags
 }
