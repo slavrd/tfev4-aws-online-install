@@ -1,0 +1,9 @@
+# Terraform initializaion directory
+.terraform/
+
+# Terraform state files
+terraform.tfstate*
+
+# Ignore .tfvars files
+*.tfvars
+!example.tfvars
