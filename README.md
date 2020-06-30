@@ -6,7 +6,7 @@ Terraform Enterprise will be installed using `online` installation [mode](https:
 
 For the installation process to be automated the user needs to provide the files containing the SSL certificate which Terraform Enterprise will present, the certificate private key and the Terraform Enterprise licence. An AWS S3 bucket will be created and the files will be uploaded to it. During the installation process the files will be downloaded to the Terraform Enterprise EC2 instance from this S3 bucket.
 
-The Terraform Enterprise version will pinned to avoid unintentional upgrades when the EC2 instance is recreated. 
+The Terraform Enterprise version will be pinned to avoid unintentional upgrades when the EC2 instance is recreated. 
 
 The Terraform configuration is divided into sub-modules. The root module in this directory is used to tie them together so that all resources can be provisioned with a single run e.g. for a demo.
 
@@ -104,10 +104,10 @@ The file `example.tfvars` is an example of a minimum set of input variables need
   ```
 ### Updating Terraform Enterprise
 
-The Terraform Enterprise version will pinned to avoid unintentional upgrades when the EC2 instance is recreated. When the application needs to be updated ideally the following steps should be followed
+The Terraform Enterprise version will be pinned to avoid unintentional upgrades when the EC2 instance is recreated. When the application needs to be updated ideally the following steps should be followed:
 
 1. Set the `tfe_release_sequence` terraform variable to the release sequence corresponding to the new version.
 2. Apply the terraform configuration. This will update the Auto Scaling group launch configuration but will not affect the current EC2 instance running Terraform Enterprise.
 3. Terminate the current EC2 instance running Terraform Enterprise. This will make the Auto Scaling group launch a new EC2 instance using the updated launch configuration which will install the new TFE version.
 
-If Terraform Enterprise is updated out of bounds e.g. via the Replicated Console UI make sure to perform steps 1 and 2. That way the Auto Scaling group launch configuration will be updated and any new EC2 instances created by the Auto Scaling group will also install the new Terraform Enterprise version.
+If Terraform Enterprise is updated out of bounds e.g. via the Replicated Console UI make sure to perform steps 1 and 2. That way the Auto Scaling group launch configuration will also be updated and any new EC2 instances created by the Auto Scaling group will also install the new Terraform Enterprise version.
