@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Dwonloads the TFE intallation assets from S3
+[ -d '/opt/tfe-installer/' ] || mkdir -p '/opt/tfe-installer/'
+aws s3 cp ${tfe_cert_s3_path} '/opt/tfe-installer/cert.pem'
+aws s3 cp ${tfe_privkey_s3_path} '/opt/tfe-installer/privkey.pem'
+aws s3 cp ${tfe_license_s3_path} '/opt/tfe-installer/tfe-license.rli'

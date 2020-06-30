@@ -1,0 +1,28 @@
+#cloud-config
+packages:
+- awscli
+- jq
+write_files:
+-   encoding: gz+b64
+    content: ${ replicated_conf_b64content }
+    owner: root:root
+    path: /etc/replicated.conf
+    permissions: '0644'
+-   encoding: gz+b64
+    content: ${ tfe_settings_b64content }
+    owner: root:root
+    path: /opt/tfe-installer/settings.json
+    permissions: '0644'
+-   encoding: gz+b64
+    content: ${ install_wrapper_b64content }
+    owner: root:root
+    path: /opt/tfe-installer/install_wrap.sh
+    permissions: '0755'
+-   encoding: gz+b64
+    content: ${ download_assets_b64content }
+    owner: root:root
+    path: /opt/tfe-installer/download_assets.sh
+    permissions: '0755'
+runcmd:
+- [ "/bin/bash", "/opt/tfe-installer/download_assets.sh" ]
+- [ "/bin/bash", "-c", "pushd /opt/tfe-installer/; ./install_wrap.sh; popd" ]

@@ -1,0 +1,73 @@
+{
+    "aws_instance_profile": {
+        "value": "1"
+    },
+    "ca_certs": {
+        "value": "${tfe_ca_bundle}"
+    },
+    "capacity_concurrency": {
+        "value": "10"
+    },
+    "capacity_memory": {
+        "value": "512"
+    },
+    "custom_image_tag": {
+        "value": "hashicorp/build-worker:now"
+    },
+    "enable_metrics_collection": {
+        "value": "1"
+    },
+    "enc_password": {
+        "value": "${tfe_enc_password}"
+    },
+    "extern_vault_enable": {
+        "value": "0"
+    },
+    "extra_no_proxy": {},
+    "hostname": {
+        "value": "${tfe_hostname}"
+    },
+    "iact_subnet_list": {},
+    "iact_subnet_time_limit": {
+        "value": "60"
+    },
+    "installation_type": {
+        "value": "production"
+    },
+    "pg_dbname": {
+        "value": "${tfe_pg_dbname}"
+    },
+    "pg_extra_params": {
+        "value": "sslmode=require"
+    },
+    "pg_netloc": {
+        "value": "${tfe_pg_address}"
+    },
+    "pg_password": {
+        "value": "${tfe_pg_password}"
+    },
+    "pg_user": {
+        "value": "${tfe_pg_user}"
+    },
+    "placement": {
+        "value": "placement_s3"
+    },
+    "production_type": {
+        "value": "external"
+    },
+    "s3_bucket": {
+        "value": "${tfe_s3_bucket}"
+    },
+    "s3_endpoint": {},
+    "s3_region": {
+        "value": "${tfe_s3_region}"
+    },
+    "s3_sse": {},
+    "s3_sse_kms_key_id": {},
+    "tbw_image": {
+        "value": "default_image"
+    },
+    "tls_vers": {
+        "value": "tls_1_2_tls_1_3"
+    }
+}

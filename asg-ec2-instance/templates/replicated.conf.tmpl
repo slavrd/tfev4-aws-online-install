@@ -1,0 +1,12 @@
+{
+    "DaemonAuthenticationType":     "password",
+    "DaemonAuthenticationPassword": "${replicated_password}",
+    "TlsBootstrapType":             "server-path",
+    "TlsBootstrapHostname":         "${tfe_hostname}",
+    "TlsBootstrapCert":             "/opt/tfe-installer/cert.pem",
+    "TlsBootstrapKey":              "/opt/tfe-installer/privkey.pem",
+    "BypassPreflightChecks":        true,
+    "ImportSettingsFrom":           "/opt/tfe-installer/settings.json",
+    "LicenseFileLocation":          "/opt/tfe-installer/tfe-license.rli",
+    "ReleaseSequence":              ${tfe_release_sequence}
+}
