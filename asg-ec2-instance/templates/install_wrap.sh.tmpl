@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+private_ip=$(curl -sSf 'http://169.254.169.254/latest/meta-data/local-ipv4')
+[ -z "$private_ip" ] && exit 1
+public_ip=$(curl -sSf 'http://169.254.169.254/latest/meta-data/public-ipv4')
+[ -z "$public_ip" ] && public_ip="$private_ip"
+curl -sS -o /tmp/install.sh https://install.terraform.io/ptfe/stable
+bash /tmp/install.sh no-proxy private-address="$private_ip" public-address="$public_ip"
+while ! curl -ksfS --connect-timeout 5 https://127.0.0.1/_health_check; do sleep 5; done
+instance_id=$(curl -sSf 'http://169.254.169.254/latest/meta-data/instance-id')
+region=$(curl -sSf 'http://169.254.169.254/latest/dynamic/instance-identity/document' | jq -r '.region')
+aws autoscaling complete-lifecycle-action --lifecycle-action-result CONTINUE \
+  --instance-id "$instance_id" --lifecycle-hook-name '${asg_hook}' \
+  --auto-scaling-group-name '${asg_name}' \
+  --region "$region"
