@@ -22,6 +22,15 @@ resource "aws_security_group_rule" "allow_https" {
   security_group_id = aws_security_group.tfe_instance.id
 }
 
+resource "aws_security_group_rule" "allow_https_self" {
+  type                     = "ingress"
+  from_port                = 443
+  to_port                  = 443
+  protocol                 = "tcp"
+  source_security_group_id = aws_security_group.tfe_instance.id
+  security_group_id        = aws_security_group.tfe_instance.id
+}
+
 resource "aws_security_group_rule" "replicated_dashboard" {
   type              = "ingress"
   from_port         = 8800
