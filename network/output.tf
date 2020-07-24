@@ -13,6 +13,11 @@ output "private_subnets_ids" {
   description = "List of the ids of the public subnets."
 }
 
+output "nat_gateway_public_ip" {
+  value       = module.tfe-network.nat_gateway_public_ip
+  description = "The public IP of the NAT gateway."
+}
+
 output "lb_dns_name" {
   value       = aws_lb.tfe.dns_name
   description = "DNS name of the created load balancer."
