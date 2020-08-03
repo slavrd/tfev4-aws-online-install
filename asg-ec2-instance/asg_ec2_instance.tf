@@ -58,8 +58,8 @@ resource "aws_autoscaling_group" "tfe" {
   wait_for_capacity_timeout = 0 # installing / starting tfe can take ~30-40 mins so no point terraform waiting for capacity.
   initial_lifecycle_hook {
     name                 = local.asg_hook
-    default_result       = "ABANDON"
-    heartbeat_timeout    = 1800
+    default_result       = "CONTINUE"
+    heartbeat_timeout    = 1200
     lifecycle_transition = "autoscaling:EC2_INSTANCE_LAUNCHING"
   }
   dynamic "tag" {
