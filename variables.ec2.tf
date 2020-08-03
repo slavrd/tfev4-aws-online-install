@@ -43,3 +43,21 @@ variable "tfe_associate_public_ip_address" {
   description = "Wether to associate public ip address with the isntance. Shold be false except if bringin a standalone instance for testing."
   default     = false
 }
+
+variable "ingress_cidrs_http" {
+  type        = list(string)
+  description = "CIDRs from which HTTP/HTTPS ingress traffic to the TFE instance is allowed."
+  default     = ["0.0.0.0/0"]
+}
+
+variable "ingress_cidrs_replicated_dashboard" {
+  type        = list(string)
+  description = "CIDRs from which ingress traffic to the TFE instance is allowed."
+  default     = ["0.0.0.0/0"]
+}
+
+variable "asg_lifecycle_hook_default_result" {
+  type        = string
+  description = "Sets the default action for the Auto Scaling group inital lifecycle hook. Can be ABANDON or CONTINUE."
+  default     = "ABANDON"
+}

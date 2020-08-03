@@ -56,10 +56,11 @@ module "tfe_instance" {
   # Should be done only for testing to make it easier to access the TFE instance.
   subnets_ids = var.tfe_associate_public_ip_address ? module.network.public_subnets_ids : module.network.private_subnets_ids
 
-  # Since a Network Load balancer is used the securtity group of the instance is used to control ingress traffic and so ingress CIDRs are set to "0.0.0.0/0"
+  # Since a Network Load balancer is used, the securtity group of the instance is used to control ingress traffic.
+  # Need to add the CIDR of the public subnets to the input provided by the user mainly becaus the Load Balancer nodes are there.
   # The publicly available ports are still limited based on the NLB listeners - 80, 443, 8800.
-  ingress_cidrs_http                 = ["0.0.0.0/0"]
-  ingress_cidrs_replicated_dashboard = ["0.0.0.0/0"]
+  ingress_cidrs_http                 = concat(var.ingress_cidrs_http, var.public_subnets_cidrs[*].cidr, list("${module.network.nat_gateway_public_ip}/32"))
+  ingress_cidrs_replicated_dashboard = concat(var.ingress_cidrs_replicated_dashboard, var.public_subnets_cidrs[*].cidr)
 
   # limit SSH ingress trafic to the public subnets CIDRs, where an SSH hop would be.
   ingress_cidrs_ssh = var.public_subnets_cidrs[*].cidr
@@ -72,6 +73,7 @@ module "tfe_instance" {
   associate_public_ip_address        = var.tfe_associate_public_ip_address
   root_block_device_size             = var.root_block_device_size
   health_check_type                  = var.health_check_type
+  asg_lifecycle_hook_default_result  = var.asg_lifecycle_hook_default_result
   replicated_password                = var.replicated_password
   tfe_hostname                       = var.tfe_hostname
   tfe_enc_password                   = var.tfe_enc_password
@@ -80,7 +82,7 @@ module "tfe_instance" {
   tfe_license_s3_path                = module.tfe_installation_assets.tfe_ilcense
   tfe_cert_s3_path                   = module.tfe_installation_assets.tfe_cert
   tfe_privkey_s3_path                = module.tfe_installation_assets.tfe_cert_key
-  tfe_ca_bundle                      = var.tfe_ca_bundle_path == "" ? "" : replace(chomp(file(var.tfe_ca_bundle_path)), "/\r{0,1}\n+/", "\\n")
+  tfe_ca_bundle                      = var.tfe_ca_bundle_path == "" ? "" : replace(chomp(file(var.tfe_ca_bundle_path)), "/\r{0,1}\n/", "\\n")
   tfe_pg_dbname                      = var.pg_db_name
   tfe_pg_address                     = module.external_services.pg_address
   tfe_pg_password                    = var.pg_password
