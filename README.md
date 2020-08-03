@@ -75,6 +75,9 @@ The file `example.tfvars` is an example of a minimum set of input variables need
 | instance_type | `string` | `"m5a.large"` | The AWS instance type to use. |
 | root_block_device_size | `number` | `50` | The size of the root block device volume in gigabytes. |
 | health_check_type | `string` | `ELB` | Sets the health-check type for the auto scaling group. Accepted values ELB, EC2. |
+| ingress_cidrs_http | `list(string)` | `["0.0.0.0/0"]` | CIDRs from which HTTP/HTTPS ingress traffic to the TFE instance is allowed. |
+| ingress_cidrs_replicated_dashboard | `list(string)` | `["0.0.0.0/0"]` | "CIDRs from which ingress traffic to the TFE instance is allowed." |
+| asg_lifecycle_hook_default_result | `string` | `ABANDON` | Sets the default action for the Auto Scaling group inital lifecycle hook. Can be ABANDON or CONTINUE. |
 | replicated_password | `string` | | Password to set for the replicated console. |
 | tfe_hostname | `string` | | Hostname which will be used to access the tfe instance. |
 | tfe_enc_password | `string` | | Encryption password to be used by tfe. |
