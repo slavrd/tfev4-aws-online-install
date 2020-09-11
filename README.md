@@ -10,9 +10,11 @@ The Terraform Enterprise version will be pinned to avoid unintentional upgrades 
 
 The Terraform configuration is divided into sub-modules. The root module in this directory is used to tie them together so that all resources can be provisioned with a single run e.g. for a demo.
 
+The current Terraform configuration is supported by Terraform 0.13. For configuration compatible with Terraform 0.12 check out this repository's `tf-0.12`(https://github.com/slavrd/tfev4-aws-online-install/tree/tf-0.12) branch.
+
 ## Prerequisites
 
-* Have Terraform `~> 0.12.20` [installed](https://www.terraform.io/downloads.html).
+* Have Terraform `~> 0.13.0` [installed](https://www.terraform.io/downloads.html).
 * Have AWS account with permissions as described [here](https://www.terraform.io/docs/enterprise/before-installing/reference-architecture/aws.html#additional-aws-resources).
 * Have a valid SSL certificate and its private key for the hostname that will be used by Terraform Enterprise
 * Have a valid Terraform Enterprise license file.
@@ -38,6 +40,13 @@ The resource configuration is split in the following modules placed in sub direc
 ## Usage
 
 This directory contains the Terraform code that ties the sub modules together. Each sub module can also be used individually by going to its sub directory.
+
+### Requirements
+
+* Terraform CLI version `~> 0.13.0`
+* Terraform providers
+  * `hashicorp/aws` version `~> 3.0`
+  * `hashicorp/tls` version `~> 2.2` 
 
 ### Input Variables
 
@@ -88,6 +97,17 @@ The file `example.tfvars` is an example of a minimum set of input variables need
 | tfe_associate_public_ip_address | `bool` | `false` | Wether to associate public ip address with the instance. Should be false except if bringing up standalone instance for testing. |
 | create_ssh_hop | `bool` | `false` | Whether to create an EC2 instance and related resources to be used as a SSH hop. |
 | ssh_ingress_cidrs | `list(string)` | `[]` | List of CIDRs from which incoming traffic SSH connections are allowed. If the list is empty 0.0.0.0/0 will be used. Considered only if `create_ssh_hop` is set to `true`. |
+
+### Outputs
+
+The root module exposes the outputs described below
+
+| Variable | Type | Description |
+| -------- | ---- | ----------- |
+| tfe_address | `string` | Address for accessing the tfe instance. |
+| replicated_address | `string` | Address for accessing the replicate console. |
+| private_key | `string` | The private key of the TLS key pair if such was created. |
+| ssh_hop_public_ip | `string` | The public IP address of the SSH hop if such was created. |
 
 ### Provisioning with Terraform
 
