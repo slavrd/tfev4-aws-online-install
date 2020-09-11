@@ -11,7 +11,6 @@ module "network" {
 module "external_services" {
   source                     = "./ext-services"
   s3_bucket_name             = var.s3_bucket_name
-  s3_bucket_region           = var.aws_region
   pg_vpc_id                  = module.network.vpc_id
   pg_subnet_ids              = module.network.private_subnets_ids
   pg_allow_ingress_cidrs     = var.private_subnets_cidrs[*].cidr
@@ -40,7 +39,6 @@ module "key_pair" {
 module "tfe_installation_assets" {
   source                   = "./installation-assets"
   s3_bucket_name           = var.installation_assets_s3_bucket_name
-  s3_bucket_region         = var.aws_region
   tfe_certificate_path     = var.tfe_certificate_path
   tfe_certificate_key_path = var.tfe_certificate_key_path
   tfe_license_path         = var.tfe_license_path

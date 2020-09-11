@@ -1,7 +1,6 @@
 resource "aws_s3_bucket" "tfe_installation_assets_s3_bucket" {
   count         = var.create ? 1 : 0
   bucket        = var.s3_bucket_name
-  region        = var.s3_bucket_region
   acl           = "private"
   force_destroy = var.s3_force_delete
 

@@ -26,7 +26,6 @@ The available input variables for the module are described in the table below.
 | Variable | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
 | s3_bucket_name | `string` | | Name of the s3 bucket to create. |
-| s3_bucket_region | `string` | | The AWS region in which to create the s3 bucket. |
 | s3_force_delete | `bool` | `true` | Whether all objects (including any locked objects) should be deleted from the bucket so that the bucket can be destroyed without error. |
 | tfe_certificate_path | `string` | | Path to the local file containing the SSL certificate to upload to the S3 bucket. |
 | tfe_certificate_key_path | `string` | | Path to the local file containing the SSL certificate private key to upload to the S3 bucket. |

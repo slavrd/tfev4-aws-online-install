@@ -1,6 +1,5 @@
 resource "aws_s3_bucket" "tfe_s3_bucket" {
   bucket        = var.s3_bucket_name
-  region        = var.s3_bucket_region
   acl           = "private"
   force_destroy = var.s3_force_delete
 

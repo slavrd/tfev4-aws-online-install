@@ -1,11 +1,11 @@
 output "tfe_address" {
   value       = "https://${var.tfe_hostname}"
-  description = "Address for accessing the tfe instance"
+  description = "Address for accessing the tfe instance."
 }
 
 output "replicated_address" {
   value       = "https://${var.tfe_hostname}:8800"
-  description = "Address for accessing the replicate console"
+  description = "Address for accessing the replicate console."
 }
 
 output "private_key" {
@@ -14,5 +14,6 @@ output "private_key" {
 }
 
 output "ssh_hop_public_ip" {
-  value = coalesce(module.ssh_hop.public_ip, "n/a")
+  value       = coalesce(module.ssh_hop.public_ip, "n/a")
+  description = "The public IP address of the SSH hop if such was created."
 }
