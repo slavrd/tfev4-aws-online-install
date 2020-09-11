@@ -39,7 +39,6 @@ module "key_pair" {
 module "tfe_installation_assets" {
   source                   = "./installation-assets"
   s3_bucket_name           = var.installation_assets_s3_bucket_name
-  s3_bucket_region         = var.aws_region
   tfe_certificate_path     = var.tfe_certificate_path
   tfe_certificate_key_path = var.tfe_certificate_key_path
   tfe_license_path         = var.tfe_license_path
