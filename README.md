@@ -27,7 +27,7 @@ The resource configuration is split in the following modules placed in sub direc
 
 * `ext-services` - external services needed for the TFEv4 installation. An PostgreSQL RDS instance and a S3 bucket. Details on what the module does are in its [readme](./ext-services/README.md).
 
-* `asg-ec2-instance` - provisions an Auto Scaling group to deploy an EC2 instance with TFEv4 installed. Assumes it is provided an AMI built with the Packer [project](../packer/README.md) in this repository. Details on what the module does are in its [readme](./asg-ec2-instance/README.md).
+* `asg-ec2-instance` - provisions an Auto Scaling group to deploy an EC2 instance with TFEv4 installed. Details on what the module does are in its [readme](./asg-ec2-instance/README.md).
 
 * `installation-assets` - creates an S3 bucket and uploads the provided SSL certificate, its private key and TFE license files.
 
