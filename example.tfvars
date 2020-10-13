@@ -4,6 +4,7 @@ vpc_cidr_block = "172.30.16.0/20"
 # Type is required by the used network module.
 # For each subnet it is needed to provide a CIDR and AZ in which to place it. 
 # The AZ is provided as a number. This number is used as index to select an AZ from the list of AZs for the current AWS region.
+
 public_subnets_cidrs = [
   {
     cidr     = "172.30.16.0/24"
@@ -14,6 +15,7 @@ public_subnets_cidrs = [
     az_index = 1
   },
 ]
+
 private_subnets_cidrs = [
   {
     cidr     = "172.30.24.0/24"
@@ -44,6 +46,8 @@ tfe_hostname         = "tfe.domain.com"
 tfe_release_sequence = 439
 replicated_password  = "Password123#"
 tfe_enc_password     = "Password123#"
+
+create_ssh_hop = false
 
 # can be a map(string) containing any key/value pairs. The key values below are just examples.
 common_tags = {

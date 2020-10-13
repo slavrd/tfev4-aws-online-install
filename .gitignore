@@ -7,3 +7,6 @@ terraform.tfstate*
 # Ignore .tfvars files
 *.tfvars
 !example.tfvars
+
+# Ignore .priv files
+*.priv

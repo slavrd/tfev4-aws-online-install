@@ -1,6 +1,6 @@
 variable "create_ssh_hop" {
   type        = bool
-  description = "Whether to create an EC2 insntance and related resources to be used as a SSH hop."
+  description = "Whether to create an EC2 instance and related resources to be used as a SSH hop."
   default     = false
 }
 
