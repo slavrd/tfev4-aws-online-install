@@ -43,7 +43,7 @@ pg_multi_az    = true
 pg_password    = "Password123#"
 
 tfe_hostname         = "tfe.domain.com"
-tfe_release_sequence = 439
+tfe_release_sequence = 479
 replicated_password  = "Password123#"
 tfe_enc_password     = "Password123#"
 
