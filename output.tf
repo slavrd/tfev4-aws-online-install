@@ -17,3 +17,8 @@ output "ssh_hop_public_ip" {
   value       = coalesce(module.ssh_hop.public_ip, "n/a")
   description = "The public IP address of the SSH hop if such was created."
 }
+
+output "lb_dns" {
+  value       = module.network.lb_dns_name
+  description = "The DNS of the Network Load Balancer if front of the TFE instance."
+}

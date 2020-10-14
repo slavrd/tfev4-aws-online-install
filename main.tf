@@ -95,6 +95,7 @@ locals {
 }
 
 module "tfe_dns" {
+  count            = var.create_dns_record ? 1 : 0
   source           = "./dns"
   cname_value      = module.network.lb_dns_name
   cname_record     = element(local.tfe_hostname_split, 0)
