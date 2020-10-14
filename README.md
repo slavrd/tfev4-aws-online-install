@@ -109,6 +109,16 @@ The root module exposes the outputs described below
 | private_key | `string` | The private key of the TLS key pair if such was created. |
 | ssh_hop_public_ip | `string` | The public IP address of the SSH hop if such was created. |
 
+## Connect to ssh hop
+
+In the event a ssh hop host is created, you can connect with the following steps
+
+```
+terraform output private_key > key.priv
+chmod 0600 key.priv
+ssh -i key.priv ubuntu@<ip>
+```
+
 ### Provisioning with Terraform
 
 - set the Terraform module input variables as described [here](https://www.terraform.io/docs/configuration/variables.html#assigning-values-to-root-module-variables).
