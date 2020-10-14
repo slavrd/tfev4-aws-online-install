@@ -49,6 +49,8 @@ tfe_enc_password     = "Password123#"
 
 create_ssh_hop = false
 
+create_dns_record = true
+
 # can be a map(string) containing any key/value pairs. The key values below are just examples.
 common_tags = {
   owner   = "owner@domain.com"

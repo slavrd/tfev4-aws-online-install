@@ -97,6 +97,7 @@ The file `example.tfvars` is an example of a minimum set of input variables need
 | tfe_associate_public_ip_address | `bool` | `false` | Wether to associate public ip address with the instance. Should be false except if bringing up standalone instance for testing. |
 | create_ssh_hop | `bool` | `false` | Whether to create an EC2 instance and related resources to be used as a SSH hop. |
 | ssh_ingress_cidrs | `list(string)` | `[]` | List of CIDRs from which incoming traffic SSH connections are allowed. If the list is empty 0.0.0.0/0 will be used. Considered only if `create_ssh_hop` is set to `true`. |
+| create_dns_record | `bool` | `true` | Weather to create a DNS record for the TFC hostame. If enabled the hostname must be in a zone hosted in AWS. |
 
 ### Outputs
 

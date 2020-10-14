@@ -66,7 +66,7 @@ variable "common_tags" {
   default     = {}
 }
 
-variable "dns_record_create" {
+variable "create_dns_record" {
   type        = bool
   description = "Weather to create a DNS record for the TFC hostame. If enabled the hostname must be in a zone hosted in AWS."
   default     = true
