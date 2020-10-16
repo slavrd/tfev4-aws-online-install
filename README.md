@@ -58,7 +58,6 @@ The file `example.tfvars` is an example of a minimum set of input variables need
 
 | Variable | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| aws_region | `string` | | The AWS region to use. |
 | common_tags | `map(string)` | `{}` | Common tags to assign to all resources. |
 | name_prefix | `string` | `"tfe-"` | A string to be used as prefix for generating names of the created resources. |
 | vpc_cidr_block | `string` | | CIDR for the VPC to create. |
