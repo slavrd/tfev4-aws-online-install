@@ -1,8 +1,3 @@
-variable "aws_region" {
-  type        = string
-  description = "The AWS region to use."
-}
-
 variable "name_prefix" {
   type        = string
   description = "A string to be used as prefix for generating names of the created resources."

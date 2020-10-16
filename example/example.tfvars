@@ -1,4 +1,3 @@
-aws_region     = "eu-central-1"
 vpc_cidr_block = "172.30.16.0/20"
 
 # Type is required by the used network module.
