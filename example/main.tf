@@ -1,6 +1,5 @@
 module "network" {
-  #source                = "./network"
-  source                = "git::https://github.com/slavrd/tfev4-aws-online-install//network"
+  source                = "git::https://modules/github.com/slavrd/tfev4-aws-online-install//modules/network"
   vpc_cidr_block        = var.vpc_cidr_block
   public_subnets_cidrs  = var.public_subnets_cidrs
   private_subnets_cidrs = var.private_subnets_cidrs
@@ -10,8 +9,7 @@ module "network" {
 }
 
 module "external_services" {
-  #source                     = "./ext-services"
-  source                     = "git::https://github.com/slavrd/tfev4-aws-online-install//ext-services"
+  source                     = "git::https://modules/github.com/slavrd/tfev4-aws-online-install//modules/ext-services"
   s3_bucket_name             = var.s3_bucket_name
   pg_vpc_id                  = module.network.vpc_id
   pg_subnet_ids              = module.network.private_subnets_ids
@@ -32,16 +30,14 @@ module "external_services" {
 }
 
 module "key_pair" {
-  #source          = "./key-pair"
-  source          = "git::https://github.com/slavrd/tfev4-aws-online-install//key-pair"
+  source          = "git::https://modules/github.com/slavrd/tfev4-aws-online-install//modules/key-pair"
   key_name        = var.key_name
   key_pair_create = var.key_pair_create
   public_key      = var.public_key_path == "" ? "" : file(var.public_key_path)
 }
 
 module "tfe_installation_assets" {
-  #source                   = "./installation-assets"
-  source                   = "git::https://github.com/slavrd/tfev4-aws-online-install//installation-assets"
+  source                   = "git::https://modules/github.com/slavrd/tfev4-aws-online-install//modules/installation-assets"
   s3_bucket_name           = var.installation_assets_s3_bucket_name
   tfe_certificate_path     = var.tfe_certificate_path
   tfe_certificate_key_path = var.tfe_certificate_key_path
@@ -50,8 +46,7 @@ module "tfe_installation_assets" {
 }
 
 module "tfe_instance" {
-  #source = "./asg-ec2-instance"
-  source = "git::https://github.com/slavrd/tfev4-aws-online-install//asg-ec2-instance"
+  source = "git::https://modules/github.com/slavrd/tfev4-aws-online-install//modules/asg-ec2-instance"
   vpc_id = module.network.vpc_id
 
   # If the tfe_associate_public_ip_address variable is set to false  (default) will place the auto scaling group in the privte subnets
@@ -101,16 +96,14 @@ locals {
 
 module "tfe_dns" {
   count            = var.create_dns_record ? 1 : 0
-  #source           = "./dns"
-  source           = "git::https://github.com/slavrd/tfev4-aws-online-install//dns"
+  source           = "git::https://modules/github.com/slavrd/tfev4-aws-online-install//modules/dns"
   cname_value      = module.network.lb_dns_name
   cname_record     = element(local.tfe_hostname_split, 0)
   hosted_zone_name = join(".", slice(local.tfe_hostname_split, 1, length(local.tfe_hostname_split)))
 }
 
 module "ssh_hop" {
-  #source              = "./ssh-hop"
-  source              = "git::https://github.com/slavrd/tfev4-aws-online-install//ssh-hop"
+  source              = "git::https://modules/github.com/slavrd/tfev4-aws-online-install//modules/ssh-hop"
   enable              = var.create_ssh_hop
   name_prefix         = var.name_prefix
   subnet_id           = module.network.public_subnets_ids[0]
