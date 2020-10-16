@@ -86,7 +86,7 @@ module "tfe_instance" {
   tfe_pg_password                    = var.pg_password
   tfe_pg_user                        = var.pg_username
   tfe_s3_bucket                      = module.external_services.s3_bucket_name
-  tfe_s3_region                      = var.aws_region
+  tfe_s3_region                      = module.external_services.s3_bucket_region
   common_tags                        = var.common_tags
 }
 
