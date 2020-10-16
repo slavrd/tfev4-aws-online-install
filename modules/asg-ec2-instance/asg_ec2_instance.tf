@@ -4,7 +4,7 @@ locals {
 }
 
 resource "aws_launch_configuration" "tfe" {
-  name_prefix                 = var.name_prefix
+  name_prefix                 = "${var.name_prefix}v${var.tfe_release_sequence}-"
   image_id                    = var.ami_id
   instance_type               = var.instance_type
   iam_instance_profile        = aws_iam_instance_profile.tfe_instance.name
