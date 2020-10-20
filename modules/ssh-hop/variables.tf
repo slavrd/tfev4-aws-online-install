@@ -1,9 +1,3 @@
-variable "enable" {
-  type        = bool
-  description = "Whether to create the module resources."
-  default     = true
-}
-
 variable "subnet_id" {
   type        = string
   description = "The Id of the subnet in which to place the EC2 instance."

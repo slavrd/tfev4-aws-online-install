@@ -14,7 +14,7 @@ output "private_key" {
 }
 
 output "ssh_hop_public_ip" {
-  value       = coalesce(module.ssh_hop.public_ip, "n/a")
+  value       = var.create_ssh_hop ? module.ssh_hop[0].public_ip : ""
   description = "The public IP address of the SSH hop if such was created."
 }
 
