@@ -108,6 +108,7 @@ The root module exposes the outputs described below
 | replicated_address | `string` | Address for accessing the replicate console. |
 | private_key | `string` | The private key of the TLS key pair if such was created. |
 | ssh_hop_public_ip | `string` | The public IP address of the SSH hop if such was created. |
+| lb_dns | `string` | The DNS of the Network Load Balancer if front of the TFE instance. |
 
 ## Connect to ssh hop
 
