@@ -1,9 +1,8 @@
 resource "aws_instance" "ssh_hop" {
-  count                       = var.enable ? 1 : 0
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = "t2.micro"
   subnet_id                   = var.subnet_id
-  vpc_security_group_ids      = aws_security_group.ssh_hop[*].id
+  vpc_security_group_ids      = [aws_security_group.ssh_hop.id]
   key_name                    = var.key_name
   associate_public_ip_address = true
   user_data_base64 = base64encode(templatefile("${path.module}/templates/cloud-init.tmpl", {
@@ -17,7 +16,6 @@ resource "aws_instance" "ssh_hop" {
 }
 
 resource "aws_security_group" "ssh_hop" {
-  count       = var.enable ? 1 : 0
   name        = "${var.name_prefix}ssh-hop-instance"
   description = "Allow incomming SSH traffic."
   vpc_id      = var.vpc_id
@@ -25,24 +23,22 @@ resource "aws_security_group" "ssh_hop" {
 }
 
 resource "aws_security_group_rule" "allow_ssh" {
-  count             = var.enable ? 1 : 0
   type              = "ingress"
   from_port         = 22
   to_port           = 22
   protocol          = "tcp"
   cidr_blocks       = coalescelist(var.allow_ingress_cirds, ["0.0.0.0/0"])
-  security_group_id = aws_security_group.ssh_hop[0].id
+  security_group_id = aws_security_group.ssh_hop.id
 }
 
 resource "aws_security_group_rule" "allow_all_outbound" {
-  count             = var.enable ? 1 : 0
   type              = "egress"
   from_port         = 0
   to_port           = 0
   protocol          = "all"
   cidr_blocks       = ["0.0.0.0/0"]
   ipv6_cidr_blocks  = ["::/0"]
-  security_group_id = aws_security_group.ssh_hop[0].id
+  security_group_id = aws_security_group.ssh_hop.id
 }
 
 data "aws_ami" "ubuntu" {
