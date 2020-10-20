@@ -119,6 +119,8 @@ chmod 0600 key.priv
 ssh -i key.priv ubuntu@<ip>
 ```
 
+If the AWS key pare was created with this Terraform configuration its private key will be copied to the ssh hop instance in `/home/ubuntu/.ssh/<key-pair-name>.pem`.
+
 ### Provisioning with Terraform
 
 - set the Terraform module input variables as described [here](https://www.terraform.io/docs/configuration/variables.html#assigning-values-to-root-module-variables).

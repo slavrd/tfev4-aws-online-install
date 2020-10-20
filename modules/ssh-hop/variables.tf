@@ -36,3 +36,9 @@ variable "name_prefix" {
   description = "A string to be used as prefix for generating names of the created resources."
   default     = "tfe-"
 }
+
+variable "ssh_private_keys" {
+  type        = map(string)
+  description = "A map of strings where the values contain private ssh keys to add to the Ubuntu user on the EC2 instance. File names are based on the map keys."
+  default     = {}
+}

@@ -1,0 +1,20 @@
+#cloud-config
+packages:
+- awscli
+- jq
+- curl
+%{ if length(keys(ssh_keys)) > 0 ~}
+write_files:
+%{ for k,v in ssh_keys ~}
+-   encoding: gz+b64
+    content: ${ base64gzip(v) }
+    owner: ubuntu:ubuntu
+    path: /opt/ssh-keys/${k}.pem
+    permissions: '0600'
+%{ endfor ~}
+runcmd:
+%{ for k,v in ssh_keys ~}
+- [ "/bin/bash", "-c","mv /opt/ssh-keys/${k}.pem /home/ubuntu/.ssh/${k}.pem; chown ubuntu:ubuntu /home/ubuntu/.ssh/${k}.pem" ]
+%{ endfor ~}
+- [ "/bin/bash", "-c","rm -rf /opt/ssh-keys/" ]
+%{ endif ~}

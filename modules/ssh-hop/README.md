@@ -29,6 +29,4 @@ The available input variables for the module are described in the table below.
 | key_name | `string` | | Name of the AWS key pair to use for the EC2 instance. |
 | common_tags | `map(string)` | `{}` | Common tags to assign to all resources. |
 | name_prefix | `string` | `"tfe-"` | A string to be used as prefix for generating names of the created resources. |
-
-
-
+| ssh_private_keys | `map(string)` | `{}` | A map of strings where the values contain private ssh keys to add to the Ubuntu user on the EC2 instance. File names are based on the map keys. |
