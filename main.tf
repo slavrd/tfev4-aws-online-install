@@ -104,7 +104,7 @@ module "tfe_dns" {
 
 module "ssh_hop" {
   source              = "./modules/ssh-hop"
-  enable              = var.create_ssh_hop
+  count               = var.create_ssh_hop ? 1 : 0
   name_prefix         = var.name_prefix
   subnet_id           = module.network.public_subnets_ids[0]
   vpc_id              = module.network.vpc_id
