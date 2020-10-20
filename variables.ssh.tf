@@ -6,6 +6,6 @@ variable "create_ssh_hop" {
 
 variable "ssh_ingress_cidrs" {
   type        = list(string)
-  description = "List of CIDRs from which incoming traffic SSH connections are allowed. If the list is empty 0.0.0.0/0 will be used."
+  description = "List of CIDRs from which incoming SSH connections are allowed. If the list is empty 0.0.0.0/0 will be used."
   default     = []
 }
