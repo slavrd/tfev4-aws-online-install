@@ -110,5 +110,6 @@ module "ssh_hop" {
   vpc_id              = module.network.vpc_id
   allow_ingress_cirds = var.ssh_ingress_cidrs
   key_name            = var.key_name
+  ssh_private_keys    = var.key_pair_create ? { (var.key_name) = module.key_pair.private_key } : null
   common_tags         = var.common_tags
 }
