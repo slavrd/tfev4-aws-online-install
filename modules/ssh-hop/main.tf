@@ -6,6 +6,9 @@ resource "aws_instance" "ssh_hop" {
   vpc_security_group_ids      = aws_security_group.ssh_hop[*].id
   key_name                    = var.key_name
   associate_public_ip_address = true
+  user_data_base64 = base64encode(templatefile("${path.module}/templates/cloud-init.tmpl", {
+    ssh_keys = var.ssh_private_keys
+  }))
 
   tags = merge({
     "Name" = "${var.name_prefix}ssh-hop"
