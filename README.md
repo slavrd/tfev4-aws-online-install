@@ -130,7 +130,7 @@ ssh -i ~/.ssh/<key-pair-name>.pem ubuntu@`tfeip`
 
 **caveats**
 
-* The EC2 instance is set up via `cloud-init`. This means that competing the configuration will take some time, usually a couple of minutes, once the instance itself is up. To be able to use the ssh keys and the `tfeip` alias the cloud-init configuration must be completed.
+* The EC2 instance is set up via `cloud-init`. This means that completing the configuration will take some time, usually a couple of minutes, once the instance itself is up. Must allow enough time for the cloud-init configuration to complete before being able to use the ssh keys and the `tfeip` alias on the ssh hop.
 
 ### Provisioning with Terraform
 
