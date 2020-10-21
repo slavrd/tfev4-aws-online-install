@@ -43,5 +43,6 @@ The available input variables for the module are described in the table below.
 The outputs declared by the module are described in the table bellow.
 
 | Variable | Type | Description |
-|  public_ip | `string` | Public IP of the EC2 instance. |
+| -------- | ---- | ----------- |
+| public_ip | `string` | Public IP of the EC2 instance. |
 | public_dns | `string` | Public DNS of the EC2 instance. |
