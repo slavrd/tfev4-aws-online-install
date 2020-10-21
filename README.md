@@ -122,11 +122,21 @@ ssh -i key.priv ubuntu@<ip>
 
 If the AWS key pair was created with this Terraform configuration its private key will be copied to the ssh hop instance in `/home/ubuntu/.ssh/<key-pair-name>.pem`.
 
+On the ssh hop instance an alias `tfeip` will be set up. It will use the AWS CLI to retrieve the IP of the Instances currently part of the TFE Auto Scaling group, provided via the `tfe_asg_name` input variable. Under normal circumstances this should be a single IP and so the following command can be used to connect to the TFE instance from the ssh hop.
+
+```
+ssh -i ~/.ssh/<key-pair-name>.pem ubuntu@`tfeip`
+```
+
+**caveats**
+
+* The EC2 instance is set up via `cloud-init`. This means that competing the configuration will take some time, usually a couple of minutes, once the instance itself is up. To be able to use the ssh keys and the `tfeip` alias the cloud-init configuration must be completed.
+
 ### Provisioning with Terraform
 
 - set the Terraform module input variables as described [here](https://www.terraform.io/docs/configuration/variables.html#assigning-values-to-root-module-variables).
 
-- Set AWS credentials according to the Terraform AWS provider [documentation](https://www.terraform.io/docs/providers/aws/index.html).
+- Set AWS credentials and region according to the Terraform AWS provider [documentation](https://www.terraform.io/docs/providers/aws/index.html).
 
 - check and confirm the changes terraform will make to the infrastructure
   
