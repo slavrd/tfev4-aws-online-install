@@ -5,8 +5,10 @@ resource "aws_instance" "ssh_hop" {
   vpc_security_group_ids      = [aws_security_group.ssh_hop.id]
   key_name                    = var.key_name
   associate_public_ip_address = true
+  iam_instance_profile        = aws_iam_instance_profile.ssh_hop.name
   user_data_base64 = base64encode(templatefile("${path.module}/templates/cloud-init.tmpl", {
-    ssh_keys = var.ssh_private_keys
+    tfe_asg_name = var.tfe_asg_group
+    ssh_keys     = var.ssh_private_keys
   }))
 
   tags = merge({
@@ -17,7 +19,7 @@ resource "aws_instance" "ssh_hop" {
 
 resource "aws_security_group" "ssh_hop" {
   name        = "${var.name_prefix}ssh-hop-instance"
-  description = "Allow incomming SSH traffic."
+  description = "Allow incoming SSH traffic."
   vpc_id      = var.vpc_id
   tags        = var.common_tags
 }

@@ -3,18 +3,26 @@ packages:
 - awscli
 - jq
 - curl
-%{ if length(keys(ssh_keys)) > 0 ~}
 write_files:
+- content: |
+    alias tfeip='aws ec2 describe-instances \
+      --instance-ids $(aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names ${tfe_asg_name} | jq -r ".AutoScalingGroups[0].Instances[] | select(.LifecycleState != \"Terminating\").InstanceId") \
+      | jq -r ".Reservations[].Instances[].PrivateIpAddress"'
+  path: /etc/profile.d/alias_tfeip.sh
+  owner: root:root
+  permissions: '644'
 %{ for k,v in ssh_keys ~}
 -   encoding: gz+b64
     content: ${ base64gzip(v) }
-    owner: ubuntu:ubuntu
     path: /opt/ssh-keys/${k}.pem
+    owner: ubuntu:ubuntu
     permissions: '0600'
 %{ endfor ~}
 runcmd:
+%{ if length(keys(ssh_keys)) > 0 ~}
 %{ for k,v in ssh_keys ~}
 - [ "/bin/bash", "-c","mv /opt/ssh-keys/${k}.pem /home/ubuntu/.ssh/${k}.pem; chown ubuntu:ubuntu /home/ubuntu/.ssh/${k}.pem" ]
 %{ endfor ~}
 - [ "/bin/bash", "-c","rm -rf /opt/ssh-keys/" ]
 %{ endif ~}
+- [ "/bin/bash", "-c", "su -c 'aws configure set default.region $(curl -sSf \"http://169.254.169.254/latest/dynamic/instance-identity/document\" | jq -r \".region\")' ubuntu"]
