@@ -8,9 +8,15 @@ The instance is built from the most recent Ubuntu Bionic image.
 
 The Terraform configuration provisions:
 
-- An EC2 security group with rules allowing incoming SSH connections
+  - An EC2 security group with rules allowing incoming SSH connections
 
-- A t2.micro EC2 instance
+  - A t2.micro EC2 instance
+
+Instance OS level configurations 
+
+  - The private SSH keys provided via the  `ssh_private_keys` input variable will be placed in `/home/ubuntu/.ssh` directory
+  - The AWS CLI will be configured to use as default the region where the instance is placed.
+  - An alias `tfeip` will be set up which will use the AWS CLI to retrieve the IP Address of the instances from the provided `tfe_asg_group`. Under normal circumstances should return a single IP Address.
 
 ## Usage
 
@@ -30,3 +36,12 @@ The available input variables for the module are described in the table below.
 | common_tags | `map(string)` | `{}` | Common tags to assign to all resources. |
 | name_prefix | `string` | `"tfe-"` | A string to be used as prefix for generating names of the created resources. |
 | ssh_private_keys | `map(string)` | `{}` | A map of strings where the values contain private ssh keys to add to the Ubuntu user on the EC2 instance. File names are based on the map keys. |
+| tfe_asg_group | `string` | `""` | The name of the AWS Auto Scaling group containing the instances for which the `tfeip` alias will retrieve IP Addresses. |
+
+## Outputs 
+
+The outputs declared by the module are described in the table bellow.
+
+| Variable | Type | Description |
+|  public_ip | `string` | Public IP of the EC2 instance. |
+| public_dns | `string` | Public DNS of the EC2 instance. |

@@ -36,3 +36,9 @@ variable "ssh_private_keys" {
   description = "A map of strings where the values contain private ssh keys to add to the Ubuntu user on the EC2 instance. File names are based on the map keys."
   default     = {}
 }
+
+variable "tfe_asg_group" {
+  type        = string
+  description = "The name of the AWS Auto Scaling group containing the instances for which the `tfeip` alias will retrieve IP Addresses."
+  default     = ""
+}
